@@ -87,6 +87,11 @@ AC_ARG_WITH(pkgconfigdir,
             [pkgconfigdir='${libdir}/pkgconfig'])
 AC_SUBST(pkgconfigdir)
 
+AC_CHECK_LIB([attr], [fgetxattr],
+   [AC_SUBST([LIBATTR], ["-lattr"])
+    AC_DEFINE([HAVE_LIBATTR], [1],
+        [Define if you have libattr])],
+   [AC_MSG_ERROR([libattr not found.])])
 AC_CHECK_LIB([xml2], [xmlParseFile], [have_libxml=true],
 	     [AC_MSG_ERROR(["cannot find libxml2"])])
 PKG_CHECK_MODULES([LIBXML2], [libxml-2.0])
